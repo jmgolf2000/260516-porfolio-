@@ -3,460 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>골프 프로 김철수 - 맞춤형 골프 레슨</title>
+    <title>골프 레슨 예약 시스템</title>
     <style>
         :root {
-            --primary-green: #1b4332;
-            --secondary-green: #2d6a4f;
-            --accent-green: #52b788;
-            --text-dark: #1b263b;
-            --text-light: #f8f9fa;
-            --bg-light: #fcfcfc;
-            --white: #ffffff;
-            --gray: #e9ecef;
+            --primary-color: #2d6a4f; /* Green theme for Golf */
+            --secondary-color: #40916c;
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --border-color: #dee2e6;
+            --danger-color: #e63946;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans KR', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', 'Noto Sans KR', sans-serif; }
+        
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.7;
-            scroll-behavior: smooth;
-        }
+        .header h1 { margin-bottom: 5px; font-size: 1.8rem; }
+        .header p { opacity: 0.9; font-size: 0.95rem; }
 
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
+            max-width: 900px;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
 
-        /* Header & Nav */
-        header {
-            background-color: var(--white);
-            height: 80px;
+        .date-picker {
             display: flex;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary-green);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-links a {
-            font-weight: 500;
-            font-size: 1rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-green);
-        }
-
-        /* Hero Section */
-        #home {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=2000') center/cover;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            color: var(--white);
-            margin-top: -80px;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+            background: #f1f3f5;
+            padding: 20px;
+            border-radius: 8px;
         }
 
-        .hero-content h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero-content p {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .cta-btn {
-            background-color: var(--accent-green);
-            color: var(--white);
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: 700;
+        .date-picker input[type="date"] {
+            padding: 10px 15px;
             font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .cta-btn:hover {
-            background-color: var(--secondary-green);
-            transform: translateY(-3px);
-        }
-
-        /* Section Global */
-        section { padding: 100px 0; }
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary-green);
-            margin-bottom: 15px;
-        }
-        .section-title div {
-            width: 60px;
-            height: 4px;
-            background-color: var(--accent-green);
-            margin: 0 auto;
-        }
-
-        /* Profile Section */
-        .profile-container {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        .profile-img {
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .profile-img img {
-            width: 100%;
-            display: block;
-        }
-
-        .profile-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary-green);
-        }
-
-        .career-list { margin-top: 30px; }
-        .career-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-        }
-        .career-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--accent-green);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            color: var(--primary-color);
             font-weight: bold;
         }
 
-        /* Lesson Section */
-        #lessons { background-color: var(--gray); }
-        .lesson-grid {
+        .slots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .lesson-card {
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            transition: 0.3s;
-            border-bottom: 5px solid transparent;
-        }
-
-        .lesson-card:hover {
-            transform: translateY(-10px);
-            border-bottom: 5px solid var(--accent-green);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        }
-
-        .lesson-card i {
-            font-size: 3rem;
-            color: var(--accent-green);
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .lesson-card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--primary-green);
-        }
-
-        .lesson-card p {
-            color: #666;
-            margin-bottom: 25px;
-        }
-
-        .lesson-price {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--secondary-green);
-        }
-
-        /* Gallery */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 15px;
         }
 
-        .gallery-item {
-            aspect-ratio: 1;
-            overflow: hidden;
-            border-radius: 10px;
-            background-color: var(--gray);
+        .slot-card {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
             position: relative;
+            overflow: hidden;
         }
 
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.5s;
+        .slot-card:hover:not(.disabled) {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(45, 106, 79, 0.1);
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.1);
+        .slot-time {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary-color);
         }
 
-        /* Contact Section */
-        #contact {
-            background-color: var(--primary-green);
-            color: var(--white);
-            text-align: center;
+        .slot-status {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6c757d;
+            background: #f8f9fa;
+            padding: 4px 0;
+            border-radius: 4px;
         }
 
-        #contact .section-title h2 { color: var(--white); }
-        #contact .section-title div { background-color: var(--accent-green); }
-
-        .contact-box {
-            background: rgba(255,255,255,0.1);
-            padding: 50px;
-            border-radius: 30px;
-            max-width: 700px;
-            margin: 0 auto;
+        .slot-card.disabled {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
+        
+        .slot-card.disabled .slot-time { color: #adb5bd; }
+        .slot-card.disabled .slot-status { background: #e9ecef; color: #adb5bd; }
 
-        .contact-methods {
-            display: flex;
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
             justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
-            flex-wrap: wrap;
+            align-items: center;
+            z-index: 1000;
         }
 
-        .contact-link {
-            background: var(--white);
-            color: var(--primary-green);
-            padding: 12px 30px;
-            border-radius: 10px;
-            font-weight: 700;
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: slideUp 0.3s ease-out;
         }
 
-        .contact-link:hover {
-            background: var(--accent-green);
-            color: var(--white);
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #888;
+        .modal h2 { margin-bottom: 10px; color: var(--primary-color); }
+        .modal-time { font-size: 1.1rem; font-weight: bold; color: #495057; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem;}
+        .form-group input { 
+            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem;
         }
+        .form-group input:focus { border-color: var(--primary-color); outline: none; }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .profile-container { grid-template-columns: 1fr; }
-            .section-title h2 { font-size: 2rem; }
+        .btn-group { display: flex; gap: 10px; margin-top: 30px; }
+        .btn {
+            flex: 1; padding: 14px; border: none; border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s;
+        }
+        .btn-primary { background: var(--primary-color); color: white; }
+        .btn-primary:hover { background: var(--secondary-color); }
+        .btn-cancel { background: #e9ecef; color: var(--text-color); }
+        .btn-cancel:hover { background: #dee2e6; }
+
+        /* Reservations List */
+        .my-reservations { margin-top: 20px; }
+        .my-reservations h2 { font-size: 1.4rem; margin-bottom: 15px; border-left: 4px solid var(--primary-color); padding-left: 10px;}
+        
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        .search-box input { flex: 1; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem; }
+        .search-box button { flex: 0 0 100px; }
+
+        .res-list { list-style: none; }
+        .res-item {
+            background: white; border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .res-info strong { font-size: 1.1rem; color: var(--primary-color); display: block; margin-bottom: 5px; }
+        .res-info span { color: #6c757d; }
+        .btn-delete { background: white; color: var(--danger-color); border: 1px solid var(--danger-color); padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s;}
+        .btn-delete:hover { background: var(--danger-color); color: white; }
+
+        .empty-msg { text-align: center; padding: 40px; color: #adb5bd; background: #f8f9fa; border-radius: 8px; }
+
+        @media (max-width: 600px) {
+            .slots-grid { grid-template-columns: repeat(2, 1fr); }
+            .res-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .btn-delete { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#home" class="logo">KIM CHUL SU GOLF</a>
-                <ul class="nav-links">
-                    <li><a href="#home">홈</a></li>
-                    <li><a href="#profile">프로필</a></li>
-                    <li><a href="#lessons">레슨 프로그램</a></li>
-                    <li><a href="#gallery">갤러리</a></li>
-                    <li><a href="#contact">문의하기</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="header">
+        <h1>⛳ 골프 레슨 예약 시스템</h1>
+        <p>각 타임당 최대 2명까지만 예약 가능한 프라이빗 레슨</p>
+    </div>
 
-    <section id="home">
-        <div class="hero-content">
-            <h1>Better Swing, Better Life</h1>
-            <p>당신의 숨겨진 비거리를 찾아드리는 맞춤형 골프 솔루션</p>
-            <a href="#contact" class="cta-btn">레슨 문의하기</a>
-        </div>
-    </section>
+    <div class="container">
+        <!-- 예약 달력 & 시간표 -->
+        <div class="card">
+            <div class="date-picker">
+                <label for="dateSelect"><strong>원하시는 날짜를 선택하세요</strong></label>
+                <input type="date" id="dateSelect">
+            </div>
 
-    <section id="profile">
-        <div class="container">
-            <div class="section-title">
-                <h2>Pro Profile</h2>
-                <div></div>
-            </div>
-            <div class="profile-container">
-                <div class="profile-img">
-                    <img src="https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&q=80&w=800" alt="김철수 프로">
-                </div>
-                <div class="profile-info">
-                    <h3>김철수 (Kim Chul Su)</h3>
-                    <p>안녕하세요, 15년 경력의 KPGA 투어 프로 김철수입니다. 복잡한 골프 이론을 실전에서 바로 쓸 수 있도록 단순하고 명쾌하게 풀어드립니다. 개인의 신체 구조와 운동 능력에 맞춘 최적화된 스윙 메커니즘을 제공합니다.</p>
-                    <ul class="career-list">
-                        <li>KPGA 투어 프로 (정회원)</li>
-                        <li>USGTF Korea 교육위원</li>
-                        <li>제25회 XX오픈 우승</li>
-                        <li>TPI Certified Level 2 (Golf Mechanics)</li>
-                        <li>전) YY 골프 아카데미 헤드 프로</li>
-                        <li>현) ZZ 골프 스튜디오 대표 프로</li>
-                    </ul>
-                </div>
+            <div class="slots-grid" id="slotsGrid">
+                <!-- JS에서 슬롯 자동 생성 -->
             </div>
         </div>
-    </section>
 
-    <section id="lessons">
-        <div class="container">
-            <div class="section-title">
-                <h2>Lesson Programs</h2>
-                <div></div>
+        <!-- 나의 예약 조회 -->
+        <div class="card my-reservations">
+            <h2>📝 예약 조회 및 취소</h2>
+            <div class="search-box">
+                <input type="text" id="searchPhone" placeholder="예약 시 등록한 연락처 전체 또는 뒷자리 입력" onkeypress="if(event.key === 'Enter') searchReservations()">
+                <button class="btn btn-primary" onclick="searchReservations()">조회</button>
             </div>
-            <div class="lesson-grid">
-                <div class="lesson-card">
-                    <h4>입문자 마스터 코스</h4>
-                    <p>골프 입문부터 풀스윙 완성까지 3개월 속성 커리큘럼</p>
-                    <div class="lesson-price">월 400,000원</div>
-                </div>
-                <div class="lesson-card">
-                    <h4>비거리 & 샷 교정</h4>
-                    <p>트랙맨 분석을 통한 정확한 데이터 기반의 원포인트 교정</p>
-                    <div class="lesson-price">10회 800,000원</div>
-                </div>
-                <div class="lesson-card">
-                    <h4>실전 필드 레슨</h4>
-                    <p>코스 공략법 및 숏게임 운영 노하우를 배우는 필드 집중 레슨</p>
-                    <div class="lesson-price">회당 300,000원</div>
-                </div>
-            </div>
+            <ul class="res-list" id="resList">
+                <div class="empty-msg">연락처를 입력하여 예약 내역을 조회해 보세요.</div>
+            </ul>
         </div>
-    </section>
+    </div>
 
-    <section id="gallery">
-        <div class="container">
-            <div class="section-title">
-                <h2>Media Gallery</h2>
-                <div></div>
+    <!-- 예약 입력 모달 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2>레슨 예약하기</h2>
+            <div class="modal-time" id="modalTimeInfo"></div>
+            
+            <div class="form-group">
+                <label for="resName">성함</label>
+                <input type="text" id="resName" placeholder="예: 김골프">
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=600" alt="Gallery 1"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1592919010384-d730328965e8?auto=format&fit=crop&q=80&w=600" alt="Gallery 2"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1623079400394-f07956928c3f?auto=format&fit=crop&q=80&w=600" alt="Gallery 3"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=600" alt="Gallery 4"></div>
+            <div class="form-group">
+                <label for="resPhone">연락처</label>
+                <input type="tel" id="resPhone" placeholder="예: 010-1234-5678">
             </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Inquiry</h2>
-                <div></div>
-            </div>
-            <div class="contact-box">
-                <p>가장 빠른 레슨 상담은 카카오톡 오픈채팅을 이용해 주세요.</p>
-                <div class="contact-methods">
-                    <a href="#" class="contact-link">카카오톡 오픈채팅 💬</a>
-                    <a href="#" class="contact-link">인스타그램 📸</a>
-                </div>
-                <p style="margin-top: 30px; opacity: 0.8;">📍 서울특별시 강남구 골프빌딩 3층 ZZ 스튜디오</p>
-                <p style="opacity: 0.8;">📞 010-1234-5678</p>
+            
+            <div class="btn-group">
+                <button class="btn btn-cancel" onclick="closeModal()">취소</button>
+                <button class="btn btn-primary" onclick="submitReservation()">예약 완료</button>
             </div>
         </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Golf Pro Kim Chul Su. All rights reserved.</p>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+        // === 설정 (Constants) ===
+        const MAX_CAPACITY = 2; // 타임당 최대 예약 인원
+        const START_HOUR = 9;   // 시작 시간 09:00
+        const END_HOUR = 21;    // 종료 시간 21:00
+
+        // === 전역 상태 (State) ===
+        let selectedDate = '';
+        let selectedTime = '';
+        // LocalStorage에서 데이터 불러오기 (없으면 빈 객체)
+        let reservations = JSON.parse(localStorage.getItem('golf_reservations')) || {};
+
+        // === DOM 요소 ===
+        const dateSelect = document.getElementById('dateSelect');
+        const slotsGrid = document.getElementById('slotsGrid');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTimeInfo = document.getElementById('modalTimeInfo');
+        const resNameInput = document.getElementById('resName');
+        const resPhoneInput = document.getElementById('resPhone');
+        const resList = document.getElementById('resList');
+
+        // === 초기화 함수 ===
+        function init() {
+            // 오늘 날짜를 기본값 및 최소 선택 가능 날짜로 설정
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${yyyy}-${mm}-${dd}`;
+            
+            dateSelect.min = formattedDate;
+            dateSelect.value = formattedDate;
+            selectedDate = formattedDate;
+
+            // 날짜 변경 이벤트
+            dateSelect.addEventListener('change', (e) => {
+                selectedDate = e.target.value;
+                renderSlots();
+            });
+
+            renderSlots(); // 최초 화면 렌더링
+        }
+
+        // === 30분 단위 시간표 생성 ===
+        function generateTimeSlots() {
+            const slots = [];
+            for (let h = START_HOUR; h <= END_HOUR; h++) {
+                const hour = String(h).padStart(2, '0');
+                slots.push(`${hour}:00`);
+                if (h !== END_HOUR) { // 마지막 시간(21시)은 30분 슬롯 제외
+                    slots.push(`${hour}:30`);
+                }
+            }
+            return slots;
+        }
+
+        // === 예약 슬롯 화면 렌더링 ===
+        function renderSlots() {
+            slotsGrid.innerHTML = '';
+            const times = generateTimeSlots();
+            
+            // 선택된 날짜의 예약 데이터 가져오기
+            const dateRes = reservations[selectedDate] || {};
+
+            times.forEach(time => {
+                // 해당 시간의 예약자 수 확인
+                const bookedCount = dateRes[time] ? dateRes[time].length : 0;
+                const isFull = bookedCount >= MAX_CAPACITY;
+
+                const card = document.createElement('div');
+                card.className = `slot-card ${isFull ? 'disabled' : ''}`;
                 
-                e.preventDefault();
-                const target = document.querySelector(targetId);
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
+                // 마감 여부에 따른 텍스트 표시
+                let statusHtml = '';
+                if (isFull) {
+                    statusHtml = `<div class="slot-status">예약 마감</div>`;
+                } else {
+                    statusHtml = `<div class="slot-status" style="color: var(--primary-color);">예약 가능 (${bookedCount}/${MAX_CAPACITY})</div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="slot-time">${time}</div>
+                    ${statusHtml}
+                `;
+
+                // 마감이 아니면 클릭 시 모달 열기
+                if (!isFull) {
+                    card.onclick = () => openModal(time);
+                }
+
+                slotsGrid.appendChild(card);
+            });
+        }
+
+        // === 모달 제어 ===
+        function openModal(time) {
+            selectedTime = time;
+            modalTimeInfo.innerText = `📅 ${selectedDate} ⏰ ${time}`;
+            resNameInput.value = '';
+            resPhoneInput.value = '';
+            modalOverlay.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modalOverlay.style.display = 'none';
+        }
+
+        // === 예약 제출 로직 ===
+        function submitReservation() {
+            const name = resNameInput.value.trim();
+            const phone = resPhoneInput.value.trim();
+
+            if (!name || !phone) {
+                alert('성함과 연락처를 모두 입력해주세요.');
+                return;
+            }
+
+            // 날짜 키가 없으면 생성
+            if (!reservations[selectedDate]) {
+                reservations[selectedDate] = {};
+            }
+            // 시간 키가 없으면 생성
+            if (!reservations[selectedDate][selectedTime]) {
+                reservations[selectedDate][selectedTime] = [];
+            }
+
+            // 인원 재확인 (동시 예약 방지 로직)
+            if (reservations[selectedDate][selectedTime].length >= MAX_CAPACITY) {
+                alert('죄송합니다. 처리 중 해당 시간이 마감되었습니다.');
+                closeModal();
+                renderSlots();
+                return;
+            }
+
+            // 예약 데이터 추가
+            reservations[selectedDate][selectedTime].push({
+                id: Date.now().toString(), // 고유 ID
+                name: name,
+                phone: phone
+            });
+
+            // LocalStorage에 저장하여 DB 역할 수행
+            localStorage.setItem('golf_reservations', JSON.stringify(reservations));
+            
+            alert('✅ 예약이 완료되었습니다!');
+            closeModal();
+            renderSlots(); // 예약 후 화면 갱신
+            
+            // 방금 예약한 번호로 자동 조회 (편의성)
+            document.getElementById('searchPhone').value = phone;
+            searchReservations();
+        }
+
+        // === 예약 조회 로직 ===
+        function searchReservations() {
+            const searchTerm = document.getElementById('searchPhone').value.trim();
+            resList.innerHTML = '';
+
+            if (searchTerm.length < 4) {
+                alert('정확한 조회를 위해 연락처 뒷자리(4자리 이상)를 입력해주세요.');
+                return;
+            }
+
+            let found = false;
+
+            // 전체 예약 데이터를 순회하며 검색
+            for (const date in reservations) {
+                for (const time in reservations[date]) {
+                    const list = reservations[date][time];
+                    list.forEach(res => {
+                        // 연락처에 검색어가 포함되어 있으면 출력
+                        if (res.phone.includes(searchTerm)) {
+                            found = true;
+                            const li = document.createElement('li');
+                            li.className = 'res-item';
+                            li.innerHTML = `
+                                <div class="res-info">
+                                    <strong>${date} ${time}</strong>
+                                    <span>👤 ${res.name} | 📞 ${res.phone}</span>
+                                </div>
+                                <button class="btn-delete" onclick="cancelReservation('${date}', '${time}', '${res.id}')">예약 취소</button>
+                            `;
+                            resList.appendChild(li);
+                        }
                     });
                 }
-            });
-        });
+            }
 
-        // Simple Fade-in animation on scroll
-        const observeElements = document.querySelectorAll('section, .lesson-card, .gallery-item');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            if (!found) {
+                resList.innerHTML = '<div class="empty-msg">일치하는 예약 내역이 없습니다.</div>';
+            }
+        }
+
+        // === 예약 취소 로직 ===
+        function cancelReservation(date, time, resId) {
+            if (confirm('선택하신 예약을 정말로 취소하시겠습니까?')) {
+                const list = reservations[date][time];
+                // 해당 ID를 제외한 나머지로 배열 갱신
+                reservations[date][time] = list.filter(res => res.id !== resId);
+                
+                // LocalStorage 저장
+                localStorage.setItem('golf_reservations', JSON.stringify(reservations));
+                alert('취소 처리가 완료되었습니다.');
+                
+                // 리스트 및 슬롯 화면 갱신
+                searchReservations(); 
+                if (date === selectedDate) {
+                    renderSlots();
                 }
-            });
-        }, { threshold: 0.1 });
+            }
+        }
 
-        observeElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease-out';
-            observer.observe(el);
-        });
+        // 앱 실행
+        init();
     </script>
 </body>
 </html>
